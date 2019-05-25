@@ -2,15 +2,18 @@ package com.gesieniec.orm_overwiew.entity;
 
 import com.gesieniec.orm_overwiew.dto.UserDto;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -31,14 +34,19 @@ public class UserEntity {
     @NonNull
     private String email;
 
-//    @OneToOne
+    //    @OneToOne
 //    private ShopEntity shopEntity;
 //
-//    @OneToMany
-//    private OrdersEntity ordersEntity;
 
-    public UserDto toDto(){
-        return new UserDto(name,surname,email);
+    @OneToMany(
+            mappedBy = "userEntity", //field name in the ordersEntity
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OrdersEntity> ordersEntity = new ArrayList<>();
+
+    public UserDto toDto() {
+        return new UserDto(name, surname, email);
     }
 
 }
