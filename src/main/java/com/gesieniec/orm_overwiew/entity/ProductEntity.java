@@ -1,5 +1,6 @@
 package com.gesieniec.orm_overwiew.entity;
 
+import com.gesieniec.orm_overwiew.dto.ProductDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -31,4 +32,9 @@ public class ProductEntity {
     private String description;
 
 //    private CategoryEntity categoryEntity;
+
+
+    public ProductDto toDto() {
+        return new ProductDto(productName, price, description);
+    }
 }

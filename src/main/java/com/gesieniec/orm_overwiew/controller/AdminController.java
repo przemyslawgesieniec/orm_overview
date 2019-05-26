@@ -1,22 +1,24 @@
 package com.gesieniec.orm_overwiew.controller;
 
+import com.gesieniec.orm_overwiew.dto.ProductDto;
 import com.gesieniec.orm_overwiew.dto.UserDto;
+import com.gesieniec.orm_overwiew.service.ProductService;
 import com.gesieniec.orm_overwiew.service.UserService;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/panel")
 public class AdminController {
 
     private UserService userService;
+    private ProductService productService;
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, ProductService productService) {
         this.userService = userService;
+        this.productService = productService;
     }
 
     @GetMapping("/users")
@@ -25,6 +27,14 @@ public class AdminController {
         final List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
         return "users";
+    }
+
+    @GetMapping("/products")
+    public String getAllProducts(Model model) {
+
+        final List<ProductDto> allProducts = productService.getAllProducts();
+        model.addAttribute("products", allProducts);
+        return "products";
     }
 
 }
