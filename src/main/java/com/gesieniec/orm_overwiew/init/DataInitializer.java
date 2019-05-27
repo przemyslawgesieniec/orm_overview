@@ -1,8 +1,10 @@
 package com.gesieniec.orm_overwiew.init;
 
+import com.gesieniec.orm_overwiew.entity.GroupEntity;
 import com.gesieniec.orm_overwiew.entity.ProductEntity;
 import com.gesieniec.orm_overwiew.entity.RoleEntity;
 import com.gesieniec.orm_overwiew.entity.UserEntity;
+import com.gesieniec.orm_overwiew.repository.GroupRepository;
 import com.gesieniec.orm_overwiew.repository.ProductRepository;
 import com.gesieniec.orm_overwiew.repository.RoleRepository;
 import com.gesieniec.orm_overwiew.repository.UserRepository;
@@ -25,12 +27,15 @@ public class DataInitializer {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private GroupRepository groupRepository;
+
     private RoleEntity roleAdmin;
     private RoleEntity roleUser;
 
     public void initializeData() {
         initializeRoles();
-        initializeUsers();
+        initializeUsersAndGroups();
         initializeProducts();
     }
 
@@ -56,11 +61,28 @@ public class DataInitializer {
         productRepository.save(product5);
     }
 
-    private void initializeUsers() {
+    private void initializeUsersAndGroups() {
         UserEntity userEntity1 = new UserEntity("Adam", "Adamowicz", "adam.adamowicz@gmail.com", roleAdmin);
         UserEntity userEntity2 = new UserEntity("Michal", "Michalczewski", "michal.michalczewski@gmail.com", roleUser);
         UserEntity userEntity3 = new UserEntity("Lukasz", "Lukaszewicz", "lukasz.lukaszewicz@gmail.com", roleUser);
         UserEntity userEntity4 = new UserEntity("Krzysztof", "Krzryskiewicz", "krzysztof.krzryskiewicz@gmail.com", roleUser);
+
+        GroupEntity groupEntity1 = new GroupEntity("Drone Lovers", "IT’S NOT JUST A HOBBY, ITS A PASSION");
+        GroupEntity groupEntity2 = new GroupEntity("My green garden" , "All about gardening");
+        GroupEntity groupEntity3 = new GroupEntity("BenchGymPro" , "For those who really want to know how to bench more");
+
+        groupRepository.save(groupEntity1);
+        groupRepository.save(groupEntity2);
+        groupRepository.save(groupEntity3);
+
+        userEntity1.addGroup(groupEntity1);
+        userEntity1.addGroup(groupEntity2);
+
+        userEntity2.addGroup(groupEntity3);
+
+        userEntity3.addGroup(groupEntity2);
+        userEntity3.addGroup(groupEntity3);
+        userEntity3.addGroup(groupEntity1);
 
         userRepository.save(userEntity1);
         userRepository.save(userEntity2);

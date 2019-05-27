@@ -11,13 +11,9 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserDto {
+public class OrdersDto {
 
-    private String name;
-    private String surname;
-    private String email;
-    private RoleDto role;
-    private List<GroupDto> groups;
-    private List<OrdersDto> orders;
-
+    private UserDto purchaserUser;
+    private String orderId;
+    private List<ProductDto> productList;
 }

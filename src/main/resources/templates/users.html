@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <title>Users</title>
 
-    <link rel="stylesheet" th:href="@{/css/materialize.css}" href="../../static/css/materialize.css"/>
-    <script th:src="@{/js/materialize.js}" src="../../static/js/materialize.js"></script>
+    <link href="../../static/css/materialize.css" rel="stylesheet" th:href="@{/css/materialize.css}"/>
+    <script src="../../static/js/materialize.js" th:src="@{/js/materialize.js}"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -19,6 +19,7 @@
         <th>SURNAME</th>
         <th>EMAIL</th>
         <th>ROLE</th>
+        <th>GROUPS</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +31,11 @@
         <td><span th:text="${user.surname}"> Surname </span></td>
         <td><span th:text="${user.email}"> email </span></td>
         <td><span th:text="${user.role.roleName}"> role </span></td>
+        <td>
+            <ul class="collection" th:each="group : ${user.groups}">
+                <li class="collection-item" th:text="${group.groupName}"> groupName</li>
+            </ul>
+        </td>
     </tr>
     </tbody>
 </table>
