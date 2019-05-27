@@ -30,24 +30,21 @@ public class DataInitializer {
     @Autowired
     private GroupRepository groupRepository;
 
-    private RoleEntity roleAdmin;
-    private RoleEntity roleUser;
 
     public void initializeData() {
-        initializeRoles();
-        initializeUsersAndGroups();
-        initializeProducts();
-    }
 
-    private void initializeRoles() {
-        roleAdmin = new RoleEntity("Administrator");
-        roleUser = new RoleEntity("User");
+        /**
+         * ROLES
+         */
+        RoleEntity roleAdmin = new RoleEntity("Administrator");
+        RoleEntity roleUser = new RoleEntity("User");
 
         roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
-    }
 
-    private void initializeProducts() {
+        /**
+         * PRODUCTS
+         */
         ProductEntity product1 = new ProductEntity("Lenovo V130-15", 1500.00);
         ProductEntity product2 = new ProductEntity("Lenovo Ideapad 320-15", 2340.99);
         ProductEntity product3 = new ProductEntity("MSI GL63", 3299.00);
@@ -59,17 +56,19 @@ public class DataInitializer {
         productRepository.save(product3);
         productRepository.save(product4);
         productRepository.save(product5);
-    }
 
-    private void initializeUsersAndGroups() {
+        /**
+         * USERS AND GROUPS
+         */
+
         UserEntity userEntity1 = new UserEntity("Adam", "Adamowicz", "adam.adamowicz@gmail.com", roleAdmin);
         UserEntity userEntity2 = new UserEntity("Michal", "Michalczewski", "michal.michalczewski@gmail.com", roleUser);
         UserEntity userEntity3 = new UserEntity("Lukasz", "Lukaszewicz", "lukasz.lukaszewicz@gmail.com", roleUser);
         UserEntity userEntity4 = new UserEntity("Krzysztof", "Krzryskiewicz", "krzysztof.krzryskiewicz@gmail.com", roleUser);
 
         GroupEntity groupEntity1 = new GroupEntity("Drone Lovers", "IT’S NOT JUST A HOBBY, ITS A PASSION");
-        GroupEntity groupEntity2 = new GroupEntity("My green garden" , "All about gardening");
-        GroupEntity groupEntity3 = new GroupEntity("BenchGymPro" , "For those who really want to know how to bench more");
+        GroupEntity groupEntity2 = new GroupEntity("My green garden", "All about gardening");
+        GroupEntity groupEntity3 = new GroupEntity("BenchGymPro", "For those who really want to know how to bench more");
 
         groupRepository.save(groupEntity1);
         groupRepository.save(groupEntity2);
@@ -88,5 +87,8 @@ public class DataInitializer {
         userRepository.save(userEntity2);
         userRepository.save(userEntity3);
         userRepository.save(userEntity4);
+
+
     }
+
 }

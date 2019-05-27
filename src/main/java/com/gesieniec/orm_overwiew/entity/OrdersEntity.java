@@ -62,4 +62,19 @@ public class OrdersEntity {
 
         return new OrdersDto(userEntity.toDto(), orderId, productList);
     }
+
+    public OrdersDto toDtoForUser() {
+
+        final List<ProductDto> productList = productEntities
+                .stream()
+                .map(ProductEntity::toDto)
+                .collect(Collectors.toList());
+
+        return new OrdersDto(null, orderId, productList);
+    }
+
+    public void addProduct(ProductEntity productEntity){
+        productEntities.add(productEntity);
+    }
+
 }

@@ -20,6 +20,7 @@
         <th>EMAIL</th>
         <th>ROLE</th>
         <th>GROUPS</th>
+        <th>ORDERS</th>
     </tr>
     </thead>
     <tbody>
@@ -34,6 +35,11 @@
         <td>
             <ul class="collection" th:each="group : ${user.groups}">
                 <li class="collection-item" th:text="${group.groupName}"> groupName</li>
+            </ul>
+        </td>
+        <td>
+            <ul class="collection" th:each="order : ${user.orders}">
+                <li class="collection-item" th:text="${order.orderId}"> orderID </li>
             </ul>
         </td>
     </tr>

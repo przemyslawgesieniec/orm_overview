@@ -77,10 +77,27 @@ public class UserEntity {
 
         final List<OrdersDto> userOrders = orderList
                 .stream()
-                .map(OrdersEntity::toDto)
+                .map(OrdersEntity::toDtoForUser)
                 .collect(Collectors.toList());
 
         return new UserDto(name, surname, email, role.toDto(), userGroups, userOrders);
     }
 
+    public UserDto toDtoForGroups(){
+        final List<OrdersDto> userOrders = orderList
+                .stream()
+                .map(OrdersEntity::toDto)
+                .collect(Collectors.toList());
+
+        return new UserDto(name, surname, email, role.toDto(), null, userOrders);
+    }
+
+    public UserDto toDtoForOrders(){
+        final List<GroupDto> userGroups = groupList
+                .stream()
+                .map(GroupEntity::toDtoForUser)
+                .collect(Collectors.toList());
+
+        return new UserDto(name, surname, email, role.toDto(), userGroups, null);
+    }
 }
