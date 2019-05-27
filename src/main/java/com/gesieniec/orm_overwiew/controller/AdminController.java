@@ -1,8 +1,10 @@
 package com.gesieniec.orm_overwiew.controller;
 
 import com.gesieniec.orm_overwiew.dto.ProductDto;
+import com.gesieniec.orm_overwiew.dto.RoleDto;
 import com.gesieniec.orm_overwiew.dto.UserDto;
 import com.gesieniec.orm_overwiew.service.ProductService;
+import com.gesieniec.orm_overwiew.service.RoleService;
 import com.gesieniec.orm_overwiew.service.UserService;
 import java.util.List;
 
@@ -15,10 +17,12 @@ public class AdminController {
 
     private UserService userService;
     private ProductService productService;
+    private RoleService roleService;
 
-    public AdminController(UserService userService, ProductService productService) {
+    public AdminController(UserService userService, ProductService productService, RoleService roleService) {
         this.userService = userService;
         this.productService = productService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/users")
@@ -35,6 +39,14 @@ public class AdminController {
         final List<ProductDto> allProducts = productService.getAllProducts();
         model.addAttribute("products", allProducts);
         return "products";
+    }
+
+    @GetMapping("/roles")
+    public String getAllRoles(Model model) {
+
+        final List<RoleDto> allRoles = roleService.getAllRoles();
+        model.addAttribute("roles", allRoles);
+        return "roles";
     }
 
 }

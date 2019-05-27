@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,9 @@ public class UserEntity {
     @NonNull
     private String email;
 
-    //    @OneToOne
-//    private ShopEntity shopEntity;
-//
+    @NonNull
+    @OneToOne
+    private RoleEntity role;
 
     @OneToMany(
             mappedBy = "userEntity", //field name in the ordersEntity
@@ -46,7 +47,7 @@ public class UserEntity {
     private List<OrdersEntity> ordersEntity = new ArrayList<>();
 
     public UserDto toDto() {
-        return new UserDto(name, surname, email);
+        return new UserDto(name, surname, email, role.toDto());
     }
 
 }

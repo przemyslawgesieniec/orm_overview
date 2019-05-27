@@ -1,11 +1,10 @@
 package com.gesieniec.orm_overwiew.entity;
 
-import com.gesieniec.orm_overwiew.dto.ProductDto;
+import com.gesieniec.orm_overwiew.dto.RoleDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,24 +14,17 @@ import javax.persistence.Table;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
-@Table(name = "PRODUCTS")
-public class ProductEntity {
+@Table(name = "ROLES")
+public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NonNull
-    private String productName;
+    private String roleName;
 
-    @NonNull
-    private Double price;
-
-    @Setter
-    private String description;
-
-
-    public ProductDto toDto() {
-        return new ProductDto(productName, price, description);
+    public RoleDto toDto(){
+        return new RoleDto(roleName);
     }
 }

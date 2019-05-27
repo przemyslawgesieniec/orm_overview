@@ -1,8 +1,10 @@
 package com.gesieniec.orm_overwiew.init;
 
 import com.gesieniec.orm_overwiew.entity.ProductEntity;
+import com.gesieniec.orm_overwiew.entity.RoleEntity;
 import com.gesieniec.orm_overwiew.entity.UserEntity;
 import com.gesieniec.orm_overwiew.repository.ProductRepository;
+import com.gesieniec.orm_overwiew.repository.RoleRepository;
 import com.gesieniec.orm_overwiew.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +22,32 @@ public class DataInitializer {
     @Autowired
     private ProductRepository productRepository;
 
-    public void initializeData(){
+    @Autowired
+    private RoleRepository roleRepository;
+
+    private RoleEntity roleAdmin;
+    private RoleEntity roleUser;
+
+    public void initializeData() {
+        initializeRoles();
         initializeUsers();
         initializeProducts();
+    }
 
+    private void initializeRoles() {
+        roleAdmin = new RoleEntity("Administrator");
+        roleUser = new RoleEntity("User");
+
+        roleRepository.save(roleAdmin);
+        roleRepository.save(roleUser);
     }
 
     private void initializeProducts() {
-        ProductEntity product1 = new ProductEntity("Lenovo V130-15",1500.00);
-        ProductEntity product2 = new ProductEntity("Lenovo Ideapad 320-15",2340.99);
-        ProductEntity product3 = new ProductEntity("MSI GL63",3299.00);
-        ProductEntity product4 = new ProductEntity("Apple MacBook Air",5549.00);
-        ProductEntity product5 = new ProductEntity("Acer Aspire 1",999.00);
+        ProductEntity product1 = new ProductEntity("Lenovo V130-15", 1500.00);
+        ProductEntity product2 = new ProductEntity("Lenovo Ideapad 320-15", 2340.99);
+        ProductEntity product3 = new ProductEntity("MSI GL63", 3299.00);
+        ProductEntity product4 = new ProductEntity("Apple MacBook Air", 5549.00);
+        ProductEntity product5 = new ProductEntity("Acer Aspire 1", 999.00);
 
         productRepository.save(product1);
         productRepository.save(product2);
@@ -40,11 +56,11 @@ public class DataInitializer {
         productRepository.save(product5);
     }
 
-    private void initializeUsers(){
-        UserEntity userEntity1 = new UserEntity("Adam","Adamowicz","adam.adamowicz@gmail.com");
-        UserEntity userEntity2 = new UserEntity("Michal","Michalczewski","michal.michalczewski@gmail.com");
-        UserEntity userEntity3 = new UserEntity("Lukasz","Lukaszewicz","lukasz.lukaszewicz@gmail.com");
-        UserEntity userEntity4 = new UserEntity("Krzysztof","Krzryskiewicz","krzysztof.krzryskiewicz@gmail.com");
+    private void initializeUsers() {
+        UserEntity userEntity1 = new UserEntity("Adam", "Adamowicz", "adam.adamowicz@gmail.com", roleAdmin);
+        UserEntity userEntity2 = new UserEntity("Michal", "Michalczewski", "michal.michalczewski@gmail.com", roleUser);
+        UserEntity userEntity3 = new UserEntity("Lukasz", "Lukaszewicz", "lukasz.lukaszewicz@gmail.com", roleUser);
+        UserEntity userEntity4 = new UserEntity("Krzysztof", "Krzryskiewicz", "krzysztof.krzryskiewicz@gmail.com", roleUser);
 
         userRepository.save(userEntity1);
         userRepository.save(userEntity2);

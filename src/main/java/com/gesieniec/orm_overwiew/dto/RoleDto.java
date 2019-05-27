@@ -10,11 +10,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserDto {
+public class RoleDto {
 
-    private String name;
-    private String surname;
-    private String email;
-    private RoleDto role;
-
+    private String roleName;
 }
