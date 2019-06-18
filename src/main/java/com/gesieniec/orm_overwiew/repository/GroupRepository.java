@@ -1,5 +1,6 @@
 package com.gesieniec.orm_overwiew.repository;
 
+import com.gesieniec.orm_overwiew.dto.GroupDto;
 import com.gesieniec.orm_overwiew.entity.GroupEntity;
 import java.util.List;
 
@@ -10,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface GroupRepository extends CrudRepository<GroupEntity, Long> {
 
     List<GroupEntity> findAll();
+    GroupEntity findByGroupName(String name);
 }

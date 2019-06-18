@@ -18,13 +18,17 @@
 
 
 
+
+
+
+
     </script>
 
 
 </head>
 <nav>
     <div class="nav-wrapper">
-        <a class="GROUPS" href="#">Logo</a>
+        <a class="GROUPS" href="#">GROUPS</a>
         <ul class="right hide-on-med-and-down" id="nav-mobile">
             <li>
                 <a class="waves-effect green btn modal-trigger" href="#modal1"><i class="material-icons left">add</i>Add
@@ -52,10 +56,14 @@
         <td>
             <div class="row">
                 <div class="col l12 m12 s12">
-                    <a class="waves-effect red accent-4 btn-small"><i class="material-icons left">close</i>delete</a>
-                </div>
-                <div class="col l12 m12 s12">
-                    <a class="waves-effect  blue btn-small"><i class="material-icons left">edit</i>edit</a>
+                    <form action="#" method="post"
+                          th:action="@{/delete/group/{groupName}(groupName=${group.groupName})}" th:object="${group}">
+                        <div class="row">
+                            <button class="waves-effect red accent-4 btn-small" type="submit" value="Delete">
+                                <i class="material-icons left">close</i> Delete
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </td>
@@ -68,23 +76,23 @@
     <div class="modal-content">
         <h4>Add Group</h4>
         <div class="row">
-            <form class="col s12">
+            <form action="#" method="post" th:action="@{/add/group}" th:object="${groupDto}">
+                <p>
+                    Group name: <input th:field="*{groupName}" type="text">
+                </p>
+                <p>
+                    Description: <input th:field="*{description}" type="text">
+                </p>
+                <p>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <input class="validate" id="first_name" placeholder="Placeholder" type="text">
-                        <label for="first_name">First Name</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input class="validate" id="last_name" type="text">
-                        <label for="last_name">Last Name</label>
-                    </div>
+                    <button class="waves-effect green btn-small modal-trigger" type="submit" value="Submit">
+                        <i class="material-icons left">add</i> Add group
+                    </button>
                 </div>
+                </p>
             </form>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <a class="modal-close waves-effect waves-green btn-flat" href="#!">Agree</a>
 </div>
 </div>
 

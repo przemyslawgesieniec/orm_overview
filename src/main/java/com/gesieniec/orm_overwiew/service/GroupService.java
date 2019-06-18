@@ -24,4 +24,14 @@ public class GroupService {
                 .map(GroupEntity::toDto)
                 .collect(Collectors.toList());
     }
+
+    public void addGroup(GroupDto groupDto){
+        GroupEntity groupEntity = new GroupEntity(groupDto.getGroupName(),groupDto.getDescription());
+        groupRepository.save(groupEntity);
+    }
+
+    public void deleteGroup(String groupName) {
+        final GroupEntity groupEntity = groupRepository.findByGroupName(groupName);
+        groupRepository.delete(groupEntity);
+    }
 }
