@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+    <link href="../../static/css/materialize.css" rel="stylesheet" th:href="@{/css/materialize.css}"/>
+    <script src="../../static/js/materialize.js" th:src="@{/js/materialize.js}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>ORDER_ID</th>
+        <th>USER NAME</th>
+        <th>USER SURNAME</th>
+        <th>PRODUCTS</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${orders.empty}">
+        <td colspan="2"> No Orders Available</td>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td><span th:text="${order.orderId}"> Order id </span></td>
+        <td><span th:text="${order.purchaserUser.name}"> user name </span></td>
+        <td><span th:text="${order.purchaserUser.surname}"> user surname </span></td>
+        <td>
+            <ul class="collection" th:each="product : ${order.productList}">
+                <li class="collection-item" th:text="${product.productName}"> products name</li>
+                <li class="collection-item" th:text="${product.price}"> price</li>
+                <li class="collection-item" th:text="${product.description}"> description</li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

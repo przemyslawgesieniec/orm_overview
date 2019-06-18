@@ -1,10 +1,12 @@
 package com.gesieniec.orm_overwiew.controller;
 
 import com.gesieniec.orm_overwiew.dto.GroupDto;
+import com.gesieniec.orm_overwiew.dto.OrdersDto;
 import com.gesieniec.orm_overwiew.dto.ProductDto;
 import com.gesieniec.orm_overwiew.dto.RoleDto;
 import com.gesieniec.orm_overwiew.dto.UserDto;
 import com.gesieniec.orm_overwiew.service.GroupService;
+import com.gesieniec.orm_overwiew.service.OrdersService;
 import com.gesieniec.orm_overwiew.service.ProductService;
 import com.gesieniec.orm_overwiew.service.RoleService;
 import com.gesieniec.orm_overwiew.service.UserService;
@@ -21,15 +23,18 @@ public class AdminController {
     private ProductService productService;
     private RoleService roleService;
     private GroupService groupService;
+    private OrdersService ordersService;
 
     public AdminController(UserService userService,
                            ProductService productService,
                            RoleService roleService,
-                           GroupService groupService) {
+                           GroupService groupService,
+                           OrdersService ordersService) {
         this.userService = userService;
         this.productService = productService;
         this.roleService = roleService;
         this.groupService = groupService;
+        this.ordersService = ordersService;
     }
 
     @GetMapping("/users")
@@ -62,6 +67,14 @@ public class AdminController {
         final List<GroupDto> allGroups = groupService.getAllGroups();
         model.addAttribute("groups", allGroups);
         return "groups";
+    }
+
+    @GetMapping("/orders")
+    public String getAllOrders(Model model) {
+
+        final List<OrdersDto> allOrders = ordersService.getAllOrders();
+        model.addAttribute("orders", allOrders);
+        return "orders";
     }
 
 }

@@ -36,7 +36,7 @@ public class OrdersEntity {
      * Join column allows to reefer back to user by the order
      */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
@@ -47,9 +47,9 @@ public class OrdersEntity {
      * which defines this association.
      */
     @NonNull
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     @JoinColumn(name = "order_id")
-    private List<ProductEntity> productEntities = new ArrayList<>();
+    private List<ProductEntity> productEntities;
 
     private String orderId = UUID.randomUUID().toString();
 

@@ -1,13 +1,17 @@
 package com.gesieniec.orm_overwiew.init;
 
 import com.gesieniec.orm_overwiew.entity.GroupEntity;
+import com.gesieniec.orm_overwiew.entity.OrdersEntity;
 import com.gesieniec.orm_overwiew.entity.ProductEntity;
 import com.gesieniec.orm_overwiew.entity.RoleEntity;
 import com.gesieniec.orm_overwiew.entity.UserEntity;
 import com.gesieniec.orm_overwiew.repository.GroupRepository;
+import com.gesieniec.orm_overwiew.repository.OrdersRepository;
 import com.gesieniec.orm_overwiew.repository.ProductRepository;
 import com.gesieniec.orm_overwiew.repository.RoleRepository;
 import com.gesieniec.orm_overwiew.repository.UserRepository;
+
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +33,9 @@ public class DataInitializer {
 
     @Autowired
     private GroupRepository groupRepository;
+
+    @Autowired
+    private OrdersRepository ordersRepository;
 
 
     public void initializeData() {
@@ -56,6 +63,7 @@ public class DataInitializer {
         productRepository.save(product3);
         productRepository.save(product4);
         productRepository.save(product5);
+
 
         /**
          * USERS AND GROUPS
@@ -87,6 +95,38 @@ public class DataInitializer {
         userRepository.save(userEntity2);
         userRepository.save(userEntity3);
         userRepository.save(userEntity4);
+
+
+        /**
+         * ORDERS
+         */
+
+        OrdersEntity ordersEntity1 = new OrdersEntity(userEntity1, Arrays.asList(product1,product2,product3));
+        OrdersEntity ordersEntity2 = new OrdersEntity(userEntity1, Arrays.asList(product4,product3,product3));
+        OrdersEntity ordersEntity3 = new OrdersEntity(userEntity2, Arrays.asList(product3));
+        OrdersEntity ordersEntity4 = new OrdersEntity(userEntity2, Arrays.asList(product2));
+        OrdersEntity ordersEntity5 = new OrdersEntity(userEntity3, Arrays.asList(product1,product2,product3,product5));
+        OrdersEntity ordersEntity6 = new OrdersEntity(userEntity4, Arrays.asList(product5,product5,product5));
+
+        ordersRepository.save(ordersEntity1);
+        ordersRepository.save(ordersEntity2);
+        ordersRepository.save(ordersEntity3);
+        ordersRepository.save(ordersEntity4);
+        ordersRepository.save(ordersEntity5);
+        ordersRepository.save(ordersEntity6);
+
+        /**
+         * ASSIGN ORDERS TO USERS
+         */
+
+        userEntity1.addOrder(ordersEntity1);
+        userEntity1.addOrder(ordersEntity2);
+        userEntity1.addOrder(ordersEntity4);
+        userEntity2.addOrder(ordersEntity6);
+        userEntity2.addOrder(ordersEntity3);
+        userEntity3.addOrder(ordersEntity5);
+        userEntity4.addOrder(ordersEntity6);
+        userEntity4.addOrder(ordersEntity1);
 
 
     }
