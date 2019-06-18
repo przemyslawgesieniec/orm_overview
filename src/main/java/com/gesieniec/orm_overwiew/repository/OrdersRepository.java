@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface OrdersRepository extends CrudRepository<OrdersEntity, Long> {
 
     List<OrdersEntity> findAll();
+
+    OrdersEntity findByOrderId(String orderId);
 }

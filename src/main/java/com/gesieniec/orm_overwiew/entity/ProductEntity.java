@@ -31,8 +31,7 @@ public class ProductEntity {
     @Setter
     private String description;
 
-
     public ProductDto toDto() {
-        return new ProductDto(productName, price, description);
+        return new ProductDto(id, productName, price, description);
     }
 }

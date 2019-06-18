@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends CrudRepository<RoleEntity, Long> {
 
     List<RoleEntity> findAll();
+    RoleEntity findByRoleName(String roleName);
 }

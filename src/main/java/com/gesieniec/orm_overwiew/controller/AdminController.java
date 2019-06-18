@@ -1,15 +1,18 @@
 package com.gesieniec.orm_overwiew.controller;
 
 import com.gesieniec.orm_overwiew.dto.GroupDto;
+import com.gesieniec.orm_overwiew.dto.OrderDao;
 import com.gesieniec.orm_overwiew.dto.OrdersDto;
 import com.gesieniec.orm_overwiew.dto.ProductDto;
 import com.gesieniec.orm_overwiew.dto.RoleDto;
+import com.gesieniec.orm_overwiew.dto.UserDao;
 import com.gesieniec.orm_overwiew.dto.UserDto;
 import com.gesieniec.orm_overwiew.service.GroupService;
 import com.gesieniec.orm_overwiew.service.OrdersService;
 import com.gesieniec.orm_overwiew.service.ProductService;
 import com.gesieniec.orm_overwiew.service.RoleService;
 import com.gesieniec.orm_overwiew.service.UserService;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -43,8 +46,24 @@ public class AdminController {
     @GetMapping("/users")
     public String getAllUsers(Model model) {
         final List<UserDto> allUsers = userService.getAllUsers();
+        final List<GroupDto> allGroups = groupService.getAllGroups();
+        final List<RoleDto> allRoles = roleService.getAllRoles();
+        model.addAttribute("roles", allRoles);
+        model.addAttribute("groups", allGroups);
+        model.addAttribute("userDao", new UserDao());
         model.addAttribute("users", allUsers);
         return "users";
+    }
+    @PostMapping("/add/user")
+    public String addUser(@ModelAttribute UserDao userDao) {
+        userService.addUser(userDao);
+        return "redirect:/users";
+    }
+
+    @PostMapping("/delete/user/{userEmail}")
+    public String deleteUser(@PathVariable String userEmail){
+        userService.deleteUser(userEmail);
+        return "redirect:/users";
     }
 
     @GetMapping("/products")
@@ -84,8 +103,29 @@ public class AdminController {
     @GetMapping("/orders")
     public String getAllOrders(Model model) {
         final List<OrdersDto> allOrders = ordersService.getAllOrders();
+        final List<UserDto> allUsers = userService.getAllUsers();
+        final List<ProductDto> allProducts = productService.getAllProducts();
+
         model.addAttribute("orders", allOrders);
+        model.addAttribute("orderDao", new OrderDao());
+        model.addAttribute("users", allUsers);
+        model.addAttribute("products", allProducts);
         return "orders";
     }
+
+    @PostMapping("/add/order")
+    public String addOrder(@ModelAttribute OrderDao orderDao) {
+        ordersService.addOrder(orderDao);
+        return "redirect:/orders";
+    }
+
+    @PostMapping("/delete/order/{orderId}")
+    public String deleteOrder(@PathVariable String orderId){
+        ordersService.deleteOrder(orderId);
+        return "redirect:/orders";
+    }
+
+
+
 
 }

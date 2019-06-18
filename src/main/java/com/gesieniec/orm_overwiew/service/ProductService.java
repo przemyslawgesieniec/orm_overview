@@ -22,4 +22,6 @@ public class ProductService {
         final List<ProductEntity> productEntities = productRepository.findAll();
         return productEntities.stream().map(ProductEntity::toDto).collect(Collectors.toList());
     }
+
+
 }

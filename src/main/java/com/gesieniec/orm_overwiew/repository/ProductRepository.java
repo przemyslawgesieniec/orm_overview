@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends CrudRepository<ProductEntity,Long> {
 
     List<ProductEntity> findAll();
+    List<ProductEntity> findAllByIdIn(List<Long> productIds);
 }

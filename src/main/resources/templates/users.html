@@ -6,11 +6,33 @@
     <title>Users</title>
 
     <link href="../../static/css/materialize.css" rel="stylesheet" th:href="@{/css/materialize.css}"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="../../static/js/materialize.js" th:src="@{/js/materialize.js}"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, null);
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, null);
+  });
+    </script>
+
 
 </head>
+<nav>
+    <div class="nav-wrapper">
+        <a class="GROUPS" href="#">USERS</a>
+        <ul class="right hide-on-med-and-down" id="nav-mobile">
+            <li>
+                <a class="waves-effect green btn modal-trigger" href="#modal1"><i class="material-icons left">add</i>Add
+                    user</a>
+        </ul>
+    </div>
+</nav>
 <body>
 <table>
     <thead>
@@ -21,6 +43,7 @@
         <th>ROLE</th>
         <th>GROUPS</th>
         <th>ORDERS</th>
+        <th>ACTION</th>
     </tr>
     </thead>
     <tbody>
@@ -39,12 +62,75 @@
         </td>
         <td>
             <ul class="collection" th:each="order : ${user.orders}">
-                <li class="collection-item" th:text="${order.orderId}"> orderID </li>
+                <li class="collection-item" th:text="${order.orderId}"> orderID</li>
             </ul>
+        </td>
+        <td>
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <form action="#" method="post"
+                          th:action="@{/delete/user/{userEmail}(userEmail=${user.email})}" th:object="${user}">
+                        <div class="row">
+                            <button class="waves-effect red accent-4 btn-small" type="submit" value="Delete">
+                                <i class="material-icons left">close</i> Delete
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </td>
     </tr>
     </tbody>
 </table>
 
+
+<!-- Modal Structure -->
+<div class="modal" id="modal1">
+    <div class="modal-content">
+        <h4>Add User</h4>
+        <div class="row">
+            <form action="#" method="post" th:action="@{/add/user}" th:object="${userDao}">
+                <p>
+                    Name: <input th:field="*{name}" type="text">
+                </p>
+                <p>
+                    Surname: <input th:field="*{surname}" type="text">
+                </p>
+                <p>
+                    Email: <input th:field="*{email}" type="text">
+                </p>u
+                <div class="row">
+                    <div class="form-group row">
+                        <select th:field="*{roleName}">
+                            <option disabled selected value=""></option>
+                            <option th:each="role : ${roles}"
+                                    th:text="${role.roleName}"
+                                    th:value="${role.roleName}"/>
+                        </select>
+                        <label>Select group</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group row">
+                        <select multiple th:field="*{groupNames}">
+                            <option disabled selected value=""></option>
+                            <option th:each="group : ${groups}"
+                                    th:text="${group.groupName}"
+                                    th:value="${group.groupName}"/>
+                        </select>
+                        <label>Select group</label>
+                    </div>
+                </div>
+                <p>
+                <div class="row">
+                    <button class="waves-effect green btn-small modal-trigger" type="submit" value="Submit">
+                        <i class="material-icons left">add</i> Add user
+                    </button>
+                </div>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

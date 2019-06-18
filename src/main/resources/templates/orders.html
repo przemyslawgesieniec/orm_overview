@@ -6,11 +6,34 @@
     <title>Users</title>
 
     <link href="../../static/css/materialize.css" rel="stylesheet" th:href="@{/css/materialize.css}"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="../../static/js/materialize.js" th:src="@{/js/materialize.js}"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, null);
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, null);
+  });
 
 
+
+
+    </script>
 </head>
+<nav>
+    <div class="nav-wrapper">
+        <a class="GROUPS" href="#">ORDERS</a>
+        <ul class="right hide-on-med-and-down" id="nav-mobile">
+            <li>
+                <a class="waves-effect green btn modal-trigger" href="#modal1"><i class="material-icons left">add</i>Add
+                    order</a>
+        </ul>
+    </div>
+</nav>
 <body>
 <table>
     <thead>
@@ -19,6 +42,7 @@
         <th>USER NAME</th>
         <th>USER SURNAME</th>
         <th>PRODUCTS</th>
+        <th>ACTION</th>
 
     </tr>
     </thead>
@@ -37,9 +61,61 @@
                 <li class="collection-item" th:text="${product.description}"> description</li>
             </ul>
         </td>
+        <td>
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <form action="#" method="post"
+                          th:action="@{/delete/order/{orderId}(orderId=${order.orderId})}" th:object="${order}">
+                        <div class="row">
+                            <button class="waves-effect red accent-4 btn-small" type="submit" value="Delete">
+                                <i class="material-icons left">close</i> Delete
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>
+
+
+<!-- Modal Structure -->
+<div class="modal" id="modal1">
+    <div class="modal-content">
+
+        <h4>Add Order</h4>
+        <form action="#" method="post" th:action="@{/add/order}" th:object="${orderDao}">
+
+                <div class="form-group row">
+                    <select th:field="*{userEmail}" >
+                        <option disabled selected value="">user</option>
+                        <option th:each="user : ${users}"
+                                th:text="${user.name} + ' ' + ${user.surname}"
+                                th:value="${user.email}"/>
+                    </select>
+                    <label>Select user</label>
+                </div>
+
+                <div class="form-group row">
+                    <select multiple th:field="*{productIds}">
+                        <option disabled selected value="">product</option>
+                        <option th:each="product : ${products}"
+                                th:utext="${product.productName}"
+                                th:value="${product.productId}"/>
+                    </select>
+                    <label>Select products</label>
+                </div>
+                <div style="margin-top: 165px;"></div>
+                <input name="submit" type="submit" value="submit" />
+                <!--<button class="waves-effect green btn-small modal-trigger" type="submit" value="Submit">-->
+                    <!--<i class="material-icons left">add</i> Add order-->
+                <!--</button>-->
+        </form>
+    </div>
+</div>
+</div>
+
 
 </body>
 </html>

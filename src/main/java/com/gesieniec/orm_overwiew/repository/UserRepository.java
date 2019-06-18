@@ -9,4 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
     List<UserEntity> findAll();
+    UserEntity getUserByEmail(String email);
+
+    UserEntity findByEmail(String userEmail);
 }
